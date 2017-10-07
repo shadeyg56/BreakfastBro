@@ -6,7 +6,7 @@ if 'TOKEN' in os.environ:
     heroku = True
     TOKEN = os.environ['TOKEN']
     
-bot = commands.Bot(prefix='tbd')
+bot = commands.Bot(command_prefix='tbd')
 
 @bot.event
 async def on_ready():
