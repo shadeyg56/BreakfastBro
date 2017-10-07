@@ -71,7 +71,7 @@ async def orders(ctx):
         await bot.say(data)
         
 @bot.command(pass_context=True)
-async def cook(ctx, order-id: str):
+async def cook(ctx, orderid: str):
     id = TinyDB('ids.json')
     x = id.search(id2)
     if x == True:
