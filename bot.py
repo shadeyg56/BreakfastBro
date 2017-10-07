@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import os
+import random
 
 if 'TOKEN' in os.environ:
     heroku = True
