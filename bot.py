@@ -57,5 +57,6 @@ async def order(ctx, *, food: str):
     embed = discord.Embed(title='New Order, ID: {}'.format(id2), description=food, color=0xed)
     embed.set_author(name='{} | {}'.format(ctx.message.author, ctx.message.author.id), icon_url=ctx.message.author.avatar_url)
     embed.set_footer(text='From: {} | {}'.format(ctx.message.server, ctx.message.server.id))
+    await bot.send_message(kitchen, embed=embed)
 
 bot.run(TOKEN)
