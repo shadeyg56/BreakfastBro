@@ -69,7 +69,7 @@ async def order(ctx, *, food: str):
             
 @bot.command(pass_context=True)
 async def orders(ctx):
-    with open('ids.json, r' as f:
+    with open('ids.json', 'r' as f:
         data = json.loads(f.read())
         await bot.say(data)
 
