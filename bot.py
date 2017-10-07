@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import os
 import random
+import json
 
 if 'TOKEN' in os.environ:
     heroku = True
@@ -58,5 +59,10 @@ async def order(ctx, *, food: str):
     embed.set_author(name='{} | {}'.format(ctx.message.author, ctx.message.author.id), icon_url=ctx.message.author.avatar_url)
     embed.set_footer(text='From: {} | {}'.format(ctx.message.server, ctx.message.server.id))
     await bot.send_message(kitchen, embed=embed)
+    with open('ids.json') as f:
+        data = [user.id]['order id'] = id
+        data = json.dumps(data, indent=4, sort_keys=True)
+    with open('ids.json', 'w') as f
+       f.write(data)
 
 bot.run(TOKEN)
