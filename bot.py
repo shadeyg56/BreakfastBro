@@ -73,7 +73,7 @@ async def orders(ctx):
 @bot.command(pass_context=True)
 async def cook(ctx, orderid: str):
     id = TinyDB('ids.json')
-    m = Query
+    m = Query()
     x = id.search(m.order == '{}'.format(orderid))
     if x == True:
         await bot.say('test')
