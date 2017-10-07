@@ -62,7 +62,7 @@ async def order(ctx, *, food: str):
     with open('ids.json') as f:
         data = [user.id]['order id'] = id
         data = json.dumps(data, indent=4, sort_keys=True)
-    with open('ids.json', 'w') as f
-       f.write(data)
+    with open('ids.json', 'w') as f:
+        f.write(data)
 
 bot.run(TOKEN)
