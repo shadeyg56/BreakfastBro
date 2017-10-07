@@ -62,7 +62,7 @@ async def order(ctx, *, food: str):
     await bot.send_message(kitchen, embed=embed)
     with open('ids.json') as f:
         data = TinyDB('ids.json')
-        data.insert({ctx.message.author.id: id2})
+        data.insert({orders: id2})
             
 @bot.command(pass_context=True)
 async def orders(ctx):
