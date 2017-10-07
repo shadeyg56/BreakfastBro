@@ -3,6 +3,7 @@ from discord.ext import commands
 import os
 import random
 import json
+from tinydb import TinyDB, Query
 
 if 'TOKEN' in os.environ:
     heroku = True
@@ -60,12 +61,8 @@ async def order(ctx, *, food: str):
     embed.set_footer(text='From: {} | {}'.format(ctx.message.server, ctx.message.server.id))
     await bot.send_message(kitchen, embed=embed)
     with open('ids.json') as f:
-        data = json.loads(f.read())
-        data[ctx.message.author.id] = ctx.message.author.id
-        data['id'] = id2
-        data = json.dumps(data, indent=4, sort_keys=True)
-    with open('ids.json', 'w') as f:
-         f.write(data)
+        data = TinyDB('ids.json')
+        data.insert({ctx.message.author.id: id2})
             
 @bot.command(pass_context=True)
 async def orders(ctx):
