@@ -29,8 +29,9 @@ async def test(ctx):
 async def order(ctx, *, food: str):
     num = random.randint(0, 100)
     kitchen = bot.get_channel('366325015488233493')
-    await bot.say('Got it. Headed to the kitchen now. Your order ID is {}'.format(id[num]))
-    embed = discord.Embed(title='New Order', description=food, color=0xed)
+    id2 = id[num]
+    await bot.say('Got it. Headed to the kitchen now. Your order ID is {}'.format(id2))
+    embed = discord.Embed(title='New Order, ID: {}'.format(id2)), description=food, color=0xed)
     embed.set_author(name=ctx.message.author + '' + '|' + '' + ctx.message.author.id, icon_url=ctx.message.author.avatar_url)
     embed.set_footer(text='From: {} | {}'.format(ctx.message.server, ctx.message.server.id))
 
