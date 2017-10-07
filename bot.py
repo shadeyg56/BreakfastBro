@@ -69,5 +69,14 @@ async def orders(ctx):
     with open('ids.json', 'r') as f:
         data = json.loads(f.read())
         await bot.say(data)
+        
+@bot.command(pass_context=True)
+async def cook(ctx, order-id: str):
+    id = TinyDB('ids.json')
+    x = id.search(id2)
+    if x == True:
+        await bot.say('test')
+    elif x == False:
+        await bot.say('That order doesn\'t exist')
 
 bot.run(TOKEN)
