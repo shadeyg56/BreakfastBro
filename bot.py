@@ -61,7 +61,7 @@ async def order(ctx, *, food: str):
     await bot.send_message(kitchen, embed=embed)
     with open('ids.json') as f:
         data = json.loads(f.read())
-        data[ctx.message.author.id] = user.id
+        data[ctx.message.author.id] = ctx.message.author.id
         data['id'] = id2
         data = json.dumps(data, indent=4, sort_keys=True)
     with open('ids.json', 'w') as f:
