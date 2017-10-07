@@ -66,5 +66,11 @@ async def order(ctx, *, food: str):
         data = json.dumps(data, indent=4, sort_keys=True)
     with open('ids.json', 'w') as f:
          f.write(data)
+            
+@bot.command(pass_context=True)
+async def orders(ctx):
+    with open('ids.json, r' as f:
+        data = json.loads(f.read())
+        await bot.say(data)
 
 bot.run(TOKEN)
