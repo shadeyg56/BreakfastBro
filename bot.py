@@ -89,11 +89,13 @@ async def cook(ctx, orderid: str, pic_url: str = None):
     embed = discord.Embed(title='Pizza ready for delivery!, ID: {}'.format(orderid), description=bot.food, color = 0xed)
     embed.set_author(name='{} | {}'.format(user, user.id), icon_url=user.avatar_url)
     embed.set_footer(text='{} | {}'.format(ctx.message.server, ctx.message.server.id))
+    with open('ids.json', 'r') as f:
+        data = json.loads(f.read())
     try:
-        await bot.send_message(channel, x)
-        await bot.say('{0.mention}, cooking order {1}'.format(ctx.message.author, orderid))
-        await asyncio.sleep(5)
-        await bot.send_message(delivery, embed=embed)
+        if '{}'.format(orderid) in data.values:
+            await bot.say('{0.mention}, cooking order {1}'.format(ctx.message.author, orderid))
+            await asyncio.sleep(5)
+            await bot.send_message(delivery, embed=embed)
     except:
         await bot.say('That order doesn\'t exist')
         
