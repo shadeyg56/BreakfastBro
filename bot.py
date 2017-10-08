@@ -82,7 +82,7 @@ async def cook(ctx, orderid: str, pic_url: str = None):
     delivery = bot.get_channel('366325049222889472')
     channel = bot.get_channel('366571152547774465')
     x = id.get(m.orders == '{}'.format(orderid))
-    embed = discord.Embed(title='Pizza ready for delivery!', description=self.food, color = 0xed)
+    embed = discord.Embed(title='Pizza ready for delivery!', description=bot.food, color = 0xed)
     embed.set_author(name='{} | {}'.format(user, user.id), icon_url=user.avatar_url)
     embed.set_footer(text='{} | {}'.format(ctx.message.channel, ctx.message.channel.id))
     try:
