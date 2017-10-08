@@ -82,9 +82,9 @@ async def cook(ctx, orderid: str, pic_url: str = None):
     delivery = bot.get_channel('366325049222889472')
     channel = bot.get_channel('366571152547774465')
     x = id.get(m.orders == '{}'.format(orderid))
-    embed = discord.Embed(title='Pizza ready for delivery!', description=bot.food, color = 0xed)
+    embed = discord.Embed(title='Pizza ready for delivery!, ID: {}'.format(orderid), description=bot.food, color = 0xed)
     embed.set_author(name='{} | {}'.format(user, user.id), icon_url=user.avatar_url)
-    embed.set_footer(text='{} | {}'.format(ctx.message.channel, ctx.message.channel.id))
+    embed.set_footer(text='{} | {}'.format(ctx.message.server, ctx.message.server.id))
     try:
         await bot.send_message(channel, x)
         await bot.say('{0.mention}, cooking order {1}'.format(ctx.message.author, orderid))
@@ -98,7 +98,22 @@ async def on_message(message):
     if message.content.startswith('d.'):
         await bot.send_message(message.channel, 'Sorry, but Darkness isn\'t available for use right now. It is currently being used for testing and should be up soon. Sorry for the inconvience. -Shadeyyy, Darkness Dev')
     await bot.process_commands(message)
-        
+    
+@bot.command(pass_context=True)
+async def deliver(ctx, orderid: str)
+    id = TinyDB('ids.json')
+    m = Query
+    x = id.get(m.orders == orderid)
+    channel = bot.get_channel('366571152547774465')
+    try:
+        await bot.send_message(channel, x)
+        await bot.say('{0.mention, preparing your delivery'.format(ctx.message.author))
+        id.update(delete(orderid))
+        await asyncio.sleep(5)
+        await bot.send_message(ctx.message.author, 'Here is your delivery for null: **null**.\nServer Invite: null')
+    except:
+        await bot.say('That order doesnt exist')
+                               
   
 
 bot.run(TOKEN)
