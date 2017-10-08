@@ -102,9 +102,12 @@ async def on_message(message):
     
 @bot.command(pass_context=True)
 async def deliver(ctx, orderid: str):
-    with open('ids.json') as f:
+    with open('ids.json', 'r') as f:
         data = json.loads(f.read())
+        data[ctx.message.author.id]
+        x = f'{data["ctx.message.author.id"]}'
     if '{}'.format(orderid) in data.values():
+        await bot.say(x)
         await bot.say('{0.mention}, preparing your delivery'.format(ctx.message.author
         await asyncio.sleep(5)
         await bot.send_message(ctx.message.author, 'Here is your delivery for null: **null**.\nServer Invite: null')
