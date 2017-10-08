@@ -76,9 +76,10 @@ async def orders(ctx):
 async def cook(ctx, orderid: str, pic_url: str = None):
     id = TinyDB('ids.json')
     m = Query()
+    channel = bot.get_channel('366571152547774465')
     x = id.get(m.orders == '{}'.format(orderid))
     try:
-        print(x)
+        await bot.send_message(channel, x)
         await bot.say('{0.mention}, cooking order {1}'.format(ctx.message.author, orderid))
     except:
         await bot.say('That order doesn\'t exist')
