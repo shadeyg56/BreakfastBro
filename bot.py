@@ -67,7 +67,7 @@ async def order(ctx, *, food: str):
     with open('ids.json') as f:
         data = json.loads(f.read())
         data['user_id'] = bot.customer
-        data['user_id']['order_id'] = id2
+        data['order_id'] = id2
         data = json.dumps(data, indent=4, sort_keys=True)
     with open('ids.json', 'w') as f:
         f.write(data)
@@ -112,7 +112,7 @@ async def deliver(ctx, orderid: str):
         await bot.say(x)
         await bot.say('{0.mention}, preparing your delivery'.format(ctx.message.author))
         await asyncio.sleep(5)
-        await bot.send_message(ctx.message.author, 'Here is your delivery for null: **null**.\nServer Invite: null')
+        await bot.send_message(ctx.message.author, 'Here is your delivery for {}: **null**.\nServer Invite: null'.format(bot.customer)
     if not '{}'.format(orderid) in data.values():                                                               
         await bot.say('That order doesnt exist')
                                
