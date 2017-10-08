@@ -5,6 +5,7 @@ import random
 import json
 from tinydb import TinyDB, Query
 import asyncio
+from tinydb.operations import delete
 
 if 'TOKEN' in os.environ:
     heroku = True
