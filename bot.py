@@ -84,6 +84,6 @@ async def cook(ctx, orderid: str):
 async def on_message(message):
     if message.content.startswith('d.'):
         await bot.send_message(message.channel, 'I\'m sorry but Darkness isn\'t available for use right now. It is currently being used for testing and be back up soon. Sorry for the inconvience -Shadey, Darkness Dev')
-        await bot.process_commands()
+        await bot.process_commands(message)
 
 bot.run(TOKEN)
