@@ -98,7 +98,7 @@ async def cook(ctx, orderid: str, pic_url: str = None):
         await bot.say('That order doesn\'t exist')
     if pic_url == None:
         bot.pic = 'None'
-    if not pic_url = None
+    if not pic_url = None:
         bot.pic = pic_url
         
 @bot.event
