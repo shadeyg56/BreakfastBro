@@ -65,7 +65,9 @@ async def order(ctx, *, food: str):
     with open('ids.json') as f:
         data = TinyDB('ids.json')
         data.insert({orders: id2})
-            
+      
+ self.food = '{}'.format(food)
+
 @bot.command(pass_context=True)
 async def orders(ctx):
     with open('ids.json', 'r') as f:
@@ -76,11 +78,18 @@ async def orders(ctx):
 async def cook(ctx, orderid: str, pic_url: str = None):
     id = TinyDB('ids.json')
     m = Query()
+    user = ctx.message.author
+    delivery = bot.get_channel('366325049222889472')
     channel = bot.get_channel('366571152547774465')
     x = id.get(m.orders == '{}'.format(orderid))
+    embed = discord.Embed(title='Pizza ready for delivery!', description=self.food, color = 0xed)
+    embed.set_author(name='{} | {}'.format(user, user.id), icon_url=user.avatar_url)
+    embed.set_footer(text='{} | {}'.format(ctx.message.channel, ctx.message.channel.id))
     try:
         await bot.send_message(channel, x)
         await bot.say('{0.mention}, cooking order {1}'.format(ctx.message.author, orderid))
+        await asyncio.sleep(5)
+        await bot.send_message(delivery, embed=embed)
     except:
         await bot.say('That order doesn\'t exist')
         
