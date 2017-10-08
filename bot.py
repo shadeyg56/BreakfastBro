@@ -105,7 +105,7 @@ async def deliver(ctx, orderid: str):
     with open('ids.json', 'r') as f:
         data = json.loads(f.read())
         data[bot.customer]
-        x = f'{data["{}"]}'.format(bot.customer)
+        x = f{'data'[bot.customer]}
     if '{}'.format(orderid) in data.values():
         await bot.say(x)
         await bot.say('{0.mention}, preparing your delivery'.format(ctx.message.author))
