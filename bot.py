@@ -79,5 +79,8 @@ async def cook(ctx, orderid: str, pic_url: str = None):
     x = id.get(m.orders == '{}'.format(orderid))
     try:
         await bot.say('{0.mention, cooking order {1}'.format(ctx.message.author, orderid))
+    except discord.Forbidden:
+        
+  
 
 bot.run(TOKEN)
