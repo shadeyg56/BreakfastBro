@@ -73,6 +73,7 @@ async def order(ctx, *, food: str):
         f.write(data)
     bot.customer = ctx.message.author.id
     bot.food = '{}'.format(food)
+    bot.channel = ctx.message.channel
 
 @bot.command(pass_context=True)
 async def orders(ctx):
@@ -96,6 +97,8 @@ async def cook(ctx, orderid: str, pic_url: str = None):
     if not '{}'.format(orderid) in data.values():
         await bot.say('That order doesn\'t exist')
         
+    bot.pic = pic_url
+        
 @bot.event
 async def on_message(message):
     if message.content.startswith('d.'):
@@ -109,7 +112,8 @@ async def deliver(ctx, orderid: str):
     if '{}'.format(orderid) in data.values():
         await bot.say('{0.mention}, preparing your delivery'.format(ctx.message.author))
         await asyncio.sleep(5)
-        await bot.send_message(ctx.message.author, 'Here is your delivery for {}: **null**.\nServer Invite: null'.format(bot.customer))
+        invite = await bot.create_invite('{}'.format(bot.channel))
+        await bot.send_message(ctx.message.author, 'Here is your delivery for {}: **{}**.\nServer Invite: {}\nFood pic: {}'.format(bot.customer, bot.channel, invite, bot.pic))
     if not '{}'.format(orderid) in data.values():                                                               
         await bot.say('That order doesnt exist')
                                
