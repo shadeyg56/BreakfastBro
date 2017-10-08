@@ -69,7 +69,7 @@ async def order(ctx, *, food: str):
         data = json.dumps(data, indent=4, sort_keys=True)
     with open('ids.json', 'w') as f:
         f.write(data)
-      
+    bot.customer = ctx.message.author.id
     bot.food = '{}'.format(food)
 
 @bot.command(pass_context=True)
@@ -104,8 +104,8 @@ async def on_message(message):
 async def deliver(ctx, orderid: str):
     with open('ids.json', 'r') as f:
         data = json.loads(f.read())
-        data[ctx.message.author.id]
-        x = f'{data["ctx.message.author.id"]}'
+        data['{}'.format(bot.customer)]
+        x = f'{data["{}"]}'.format(bot.customer)
     if '{}'.format(orderid) in data.values():
         await bot.say(x)
         await bot.say('{0.mention}, preparing your delivery'.format(ctx.message.author))
