@@ -102,7 +102,7 @@ async def on_message(message):
 @bot.command(pass_context=True)
 async def deliver(ctx, orderid: str):
     id = TinyDB('ids.json')
-    m = Query
+    m = Query()
     x = id.get(m.orders == orderid)
     channel = bot.get_channel('366571152547774465')
     try:
