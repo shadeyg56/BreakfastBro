@@ -66,7 +66,7 @@ async def order(ctx, *, food: str):
         data = TinyDB('ids.json')
         data.insert({orders: id2})
       
-    self.food = '{}'.format(food)
+    bot.food = '{}'.format(food)
 
 @bot.command(pass_context=True)
 async def orders(ctx):
