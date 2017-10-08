@@ -80,7 +80,7 @@ async def cook(ctx, orderid: str):
     elif x == False:
         await bot.say('That order doesn\'t exist')
         
-@bot.event
+@bot.event(pass_context=True)
 async def on_message(message, ctx):
     if message.content.startswith('d.'):
         await bot.send_message(ctx.message.channel, 'I\'m sorry but Darkness isn\'t available for use right now. It is currently being used for testing and be back up soon. Sorry for the inconvience -Shadey, Darkness Dev')
