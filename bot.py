@@ -108,7 +108,7 @@ async def deliver(ctx, orderid: str):
         x = f'{data["ctx.message.author.id"]}'
     if '{}'.format(orderid) in data.values():
         await bot.say(x)
-        await bot.say('{0.mention}, preparing your delivery'.format(ctx.message.author
+        await bot.say('{0.mention}, preparing your delivery'.format(ctx.message.author))
         await asyncio.sleep(5)
         await bot.send_message(ctx.message.author, 'Here is your delivery for null: **null**.\nServer Invite: null')
     if not '{}'.format(orderid) in data.values():                                                               
