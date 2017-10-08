@@ -109,10 +109,11 @@ async def on_message(message):
 async def deliver(ctx, orderid: str):
     with open('ids.json', 'r') as f:
         data = json.loads(f.read())
+    channel = bot.get_channel(bot.channel)
     if '{}'.format(orderid) in data.values():
         await bot.say('{0.mention}, preparing your delivery'.format(ctx.message.author))
         await asyncio.sleep(5)
-        invite = await bot.create_invite('{}'.format(bot.channel))
+        invite = await bot.create_invite(channel)
         await bot.send_message(ctx.message.author, 'Here is your delivery for {}: **{}**.\nServer Invite: {}\nFood pic: {}'.format(bot.customer, bot.channel, invite, bot.pic))
     if not '{}'.format(orderid) in data.values():                                                               
         await bot.say('That order doesnt exist')
