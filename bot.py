@@ -96,8 +96,8 @@ async def cook(ctx, orderid: str, pic_url: str = None):
         await bot.send_message(delivery, embed=embed)
     if not '{}'.format(orderid) in data.values():
         await bot.say('That order doesn\'t exist')
-        
-    bot.pic = pic_url
+    if not pic_url == None:
+        bot.pic = pic_url
         
 @bot.event
 async def on_message(message):
