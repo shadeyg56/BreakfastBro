@@ -75,6 +75,7 @@ async def cook(ctx, orderid: str):
     id = TinyDB('ids.json')
     m = Query()
     x = id.get(m.orders == '{}'.format(orderid))
+    await bot.say(x)
     if x == True:
         await bot.say('test')
     elif x == False:
