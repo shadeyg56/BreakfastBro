@@ -95,7 +95,7 @@ async def cook(ctx, orderid: str, pic_url: str = None):
         await bot.say('{0.mention}, cooking order {1}'.format(ctx.message.author, orderid))
         await asyncio.sleep(5)
         await bot.send_message(delivery, embed=embed)
-    if not '{}'.format(orderid) in data.values:
+    if not '{}'.format(orderid) in data.values():
         await bot.say('That order doesn\'t exist')
         
 @bot.event
