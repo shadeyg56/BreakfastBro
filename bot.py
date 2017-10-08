@@ -80,6 +80,7 @@ async def cook(ctx, orderid: str, pic_url: str = None):
     try:
         await bot.say('{0.mention, cooking order {1}'.format(ctx.message.author, orderid))
     except discord.Forbidden:
+        await bot.say('poop')
         
   
 
