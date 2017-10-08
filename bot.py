@@ -4,6 +4,7 @@ import os
 import random
 import json
 from tinydb import TinyDB, Query
+import asyncio
 
 if 'TOKEN' in os.environ:
     heroku = True
