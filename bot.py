@@ -76,7 +76,7 @@ async def cook(ctx, orderid: str, pic_url: str = None):
     id = TinyDB('ids.json')
     m = Query()
     x = id.get(m.orders == '{}'.format(orderid))
-    try:
+    try x:
         await bot.say('{0.mention, cooking order {1}'.format(ctx.message.author, orderid))
         await asyncio.sleep(180)
     except:
