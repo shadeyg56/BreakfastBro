@@ -79,7 +79,6 @@ async def cook(ctx, orderid: str, pic_url: str = None):
     x = id.get(m.orders == '{}'.format(orderid))
     try:
         await bot.say('{0.mention, cooking order {1}'.format(ctx.message.author, orderid))
-        await asyncio.sleep(180)
 
 @bot.event
 async def on_message(message):
