@@ -75,11 +75,11 @@ async def cook(ctx, orderid: str):
     id = TinyDB('ids.json')
     m = Query()
     x = id.get(m.orders == '{}'.format(orderid))
-    await bot.say(x)
-    if x == True:
-        await bot.say('test')
-    elif x == False:
-        await bot.say('That order doesn\'t exist')
+    try:
+        await bot.say(x)
+    except:
+        await bot.say('That order doesnt exist')
+    
         
 @bot.event
 async def on_message(message):
