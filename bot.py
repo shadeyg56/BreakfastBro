@@ -100,7 +100,7 @@ async def on_message(message):
     await bot.process_commands(message)
     
 @bot.command(pass_context=True)
-async def deliver(ctx, orderid: str)
+async def deliver(ctx, orderid: str):
     id = TinyDB('ids.json')
     m = Query
     x = id.get(m.orders == orderid)
