@@ -66,7 +66,8 @@ async def order(ctx, *, food: str):
     await bot.send_message(kitchen, embed=embed)
     with open('ids.json') as f:
         data = json.loads(f.read())
-        data[bot.customer] = id2
+        data[ctx.message.user] = bot.customer
+        data['order_id'] = id2
         data = json.dumps(data, indent=4, sort_keys=True)
     with open('ids.json', 'w') as f:
         f.write(data)
