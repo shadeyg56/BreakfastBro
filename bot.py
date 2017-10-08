@@ -78,10 +78,16 @@ async def cook(ctx, orderid: str, pic_url: str = None):
     m = Query()
     x = id.get(m.orders == '{}'.format(orderid))
     try:
-        await bot.say('{0.mention, cooking order {1}'.format(ctx.message.author, orderid))
+        await bot.say('{0.mention}, cooking order {1}'.format(ctx.message.author, orderid))
         await bot.say(x)
     except:
         await bot.say('That order doesn\'t exist')
+        
+@bot.event
+async def on_message(message):
+    if message.content.startswith('d.'):
+        await bot.say('Sorry, but Darkness isn\'t available for use right now. It is currently being used for testing and should be up soon. Sorry for the inconvience. -Shadeyyy, Darkness Dev')
+    await bot.process_commands(message)
         
   
 
