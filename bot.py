@@ -80,12 +80,8 @@ async def orders(ctx):
         
 @bot.command(pass_context=True)
 async def cook(ctx, orderid: str, pic_url: str = None):
-    id = TinyDB('ids.json')
-    m = Query()
     user = ctx.message.author
     delivery = bot.get_channel('366325049222889472')
-    channel = bot.get_channel('366571152547774465')
-    x = id.get(m.orders == '{}'.format(orderid))
     embed = discord.Embed(title='Pizza ready for delivery!, ID: {}'.format(orderid), description=bot.food, color = 0xed)
     embed.set_author(name='{} | {}'.format(user, user.id), icon_url=user.avatar_url)
     embed.set_footer(text='{} | {}'.format(ctx.message.server, ctx.message.server.id))
@@ -106,16 +102,14 @@ async def on_message(message):
     
 @bot.command(pass_context=True)
 async def deliver(ctx, orderid: str):
-    id = TinyDB('ids.json')
-    m = Query()
-    x = id.get(m.orders == orderid)
-    channel = bot.get_channel('366571152547774465')
-    await bot.send_message(channel, x)
-    await bot.say('{0.mention}, preparing your delivery'.format(ctx.message.author))    
-    id.update(delete('1'), m.orders == orderid)
-    await asyncio.sleep(5)
-    await bot.send_message(ctx.message.author, 'Here is your delivery for null: **null**.\nServer Invite: null')
-    await bot.say('That order doesnt exist')
+    with open('ids.json') as f:
+        data = json.loads(f.read())
+    if '{}'.format(orderid) in data.values():
+        await bot.say('{0.mention}, preparing your delivery'.format(ctx.message.author
+        await asyncio.sleep(5)
+        await bot.send_message(ctx.message.author, 'Here is your delivery for null: **null**.\nServer Invite: null')
+    if not '{}'.format(orderid) in data.values():                                                               
+        await bot.say('That order doesnt exist')
                                
   
 
