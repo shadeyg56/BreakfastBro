@@ -58,6 +58,7 @@ async def order(ctx, *, food: str):
     num = random.randint(0, 100)
     kitchen = bot.get_channel('366325015488233493')
     id2 = id[num]
+    bot.customer = ctx.message.user.id
     await bot.say('Got it. Headed to the kitchen now. Your order ID is {}'.format(id2))
     embed = discord.Embed(title='New Order, ID: {}'.format(id2), description=food, color=0xed)
     embed.set_author(name='{} | {}'.format(ctx.message.author, ctx.message.author.id), icon_url=ctx.message.author.avatar_url)
@@ -65,7 +66,7 @@ async def order(ctx, *, food: str):
     await bot.send_message(kitchen, embed=embed)
     with open('ids.json') as f:
         data = json.loads(f.read())
-        data[ctx.message.author.id] = id2
+        data[bot.customer] = id2
         data = json.dumps(data, indent=4, sort_keys=True)
     with open('ids.json', 'w') as f:
         f.write(data)
