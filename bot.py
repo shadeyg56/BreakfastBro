@@ -78,8 +78,8 @@ async def cook(ctx, orderid: str, pic_url: str = None):
     m = Query()
     x = id.get(m.orders == '{}'.format(orderid))
     try:
-        await bot.say('{0.mention}, cooking order {1}'.format(ctx.message.author, orderid))
-        await bot.say(x)
+        if x == True:
+            await bot.say('{0.mention}, cooking order {1}'.format(ctx.message.author, orderid))
     except:
         await bot.say('That order doesn\'t exist')
         
