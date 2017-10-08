@@ -66,14 +66,14 @@ async def order(ctx, *, food: str):
     await bot.send_message(kitchen, embed=embed)
     with open('ids.json') as f:
         data = json.loads(f.read())
-        data['user_id'] = bot.customer
-        data['order_id'] = id2
+        data['unclaimed'] = id2
         data = json.dumps(data, indent=4, sort_keys=True)
     with open('ids.json', 'w') as f:
         f.write(data)
     bot.customer = ctx.message.author.id
     bot.food = '{}'.format(food)
     bot.channel = ctx.message.channel.id
+    bot.id = id2
 
 @bot.command(pass_context=True)
 async def orders(ctx):
@@ -92,8 +92,10 @@ async def cook(ctx, orderid: str, pic_url: str = None):
         data = json.loads(f.read())
     if '{}'.format(orderid) in data.values():
         await bot.say('{0.mention}, cooking order {1}'.format(ctx.message.author, orderid))
+        data['Cooking'] = bot.id
         await asyncio.sleep(5)
         await bot.send_message(delivery, embed=embed)
+        data['Cooked'] = bot.id
     if not '{}'.format(orderid) in data.values():
         await bot.say('That order doesn\'t exist')
     if pic_url == None:
