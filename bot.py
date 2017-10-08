@@ -108,7 +108,7 @@ async def deliver(ctx, orderid: str):
     channel = bot.get_channel('366571152547774465')
     await bot.send_message(channel, x)
     await bot.say('{0.mention}, preparing your delivery'.format(ctx.message.author))    
-    id.update(delete(orderid))
+    id.update(delete(orders), m.orders == orderid)
     await asyncio.sleep(5)
     await bot.send_message(ctx.message.author, 'Here is your delivery for null: **null**.\nServer Invite: null')
     await bot.say('That order doesnt exist')
