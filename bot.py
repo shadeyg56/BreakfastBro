@@ -107,7 +107,7 @@ async def deliver(ctx, orderid: str):
     channel = bot.get_channel('366571152547774465')
     try:
         await bot.send_message(channel, x)
-        await bot.say('{0.mention, preparing your delivery'.format(ctx.message.author))
+        await bot.say('{0.mention}, preparing your delivery'.format(ctx.message.author))
         id.update(delete(orderid))
         await asyncio.sleep(5)
         await bot.send_message(ctx.message.author, 'Here is your delivery for null: **null**.\nServer Invite: null')
