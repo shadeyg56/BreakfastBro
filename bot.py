@@ -66,7 +66,7 @@ async def order(ctx, *, food: str):
     with open('ids.json') as f:
         data = json.loads(f.read())
         data[ctx.message.author.id] = id2
-        data = json.dumps(data,
+        data = json.dumps(data, indent=4, sort_keys=True)
       
     bot.food = '{}'.format(food)
 
