@@ -89,7 +89,7 @@ async def order(ctx, *, food: str):
     bot.food = '{}'.format(food)
     bot.channel = ctx.message.channel.id
     bot.id = id2
-    bot.formatted = '<@' + bot.customer + '>'
+    bot.formatted = user
 
 @bot.command(pass_context=True)
 async def orders(ctx):
