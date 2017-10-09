@@ -66,7 +66,7 @@ async def order(ctx, *, food: str):
     await bot.send_message(kitchen, embed=embed)
     with open('ids.json') as f:
         data = json.loads(f.read())
-        data['unclaimed'] = id2
+        data['unclaimed'] += id2
         data = json.dumps(data, indent=4, sort_keys=True)
     with open('ids.json', 'w') as f:
         f.write(data)
@@ -125,3 +125,8 @@ async def deliver(ctx, orderid: str):
   
 
 bot.run(TOKEN)
+
+
+embed = discord.Embed(title='Sneaky Help Server Mod Application', color=0x00FF00)
+embed.add_field(name='Why should I be a mod', value='I\’ve been a mod on several discord’s before (and still am). I also own a server with around 130 people. I really like the environment of this server. The only time I’m not on Discord is when I’m at school, sleeping, or out somewhere. Any other time I’m on. Therefore I can help keep chats clean and make sure everyone is following the rules. I can also help give support for python (which I kinda already do).\nThanks,\nshadeyg56')
+embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
