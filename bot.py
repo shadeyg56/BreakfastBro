@@ -89,6 +89,7 @@ async def order(ctx, *, food: str):
     bot.food = '{}'.format(food)
     bot.channel = ctx.message.channel.id
     bot.id = id2
+    bot.formatted = '<@' + bot.customer + '>'
 
 @bot.command(pass_context=True)
 async def orders(ctx):
@@ -108,7 +109,7 @@ async def cook(ctx, orderid: str, pic_url: str = None):
     if data[bot.customer]["orderid"] == '{}'.format(orderid):
         if data[bot.customer]["status"] == "claimed":
             await bot.say('{0.mention}, cooking order {1}'.format(ctx.message.author, orderid))
-            await bot.send_message(bot.customer, '{} has began cooking your order. This process takes about 3 minutes'.format(ctx.message.author))
+            await bot.send_message(bot.formatted, '{} has began cooking your order. This process takes about 3 minutes'.format(ctx.message.author))
             data[bot.customer]["status"] = "cooking"
             data = json.dumps(data, indent=4, sort_keys=True)
             with open('ids.json',  'w') as f:
@@ -118,7 +119,7 @@ async def cook(ctx, orderid: str, pic_url: str = None):
                 data = json.loads(f.read())
                 data[bot.customer]["status"] = "cooked"
             await bot.send_message(delivery, embed=embed)
-            await bot.send_messags(bot.customer, 'Your order has finished cooking and should be delivered soon')
+            await bot.send_messags(bot.formatted, 'Your order has finished cooking and should be delivered soon')
             data = json.dumps(data, indent=4, sort_keys=True)
             with open('ids.json', 'w') as f:
                 f.write(data)
@@ -138,7 +139,7 @@ async def deliver(ctx, orderid: str):
     if data[bot.customer]["orderid"] == '{}'.format(orderid):
         if data[bot.customer]["status"] == "cooked":
             await bot.say('{0.mention}, preparing your delivery'.format(ctx.message.author))
-            await bot.send_message(bot.customer, '{} is now delivering your order. Your order will now be removed from the queue. Thanks for ordering from **Breakfest Bro**'.format(ctx.message.author))
+            await bot.send_message(bot.formatted, '{} is now delivering your order. Your order will now be removed from the queue. Thanks for ordering from **Breakfest Bro**'.format(ctx.message.author))
             data[bot.customer] = {}
             await asyncio.sleep(5)
             invite = await bot.create_invite(channel)
@@ -155,7 +156,7 @@ async def claim(ctx, orderid: str):
         if data[bot.customer]["orderid"] == '{}'.format(orderid):
             data[bot.customer]["status"] = "claimed"
             await bot.say('{0.mention}, You claimed order {1}'.format(ctx.message.author, orderid))
-            await bot.send_message(bot.customer, '{} has claimed your order. They should start cooking it soon'.format(ctx.message.author))
+            await bot.send_message(bot.formatted, '{} has claimed your order. They should start cooking it soon'.format(ctx.message.author))
         else:
              await bot.say("That order doesn\'t exist")
     else:
