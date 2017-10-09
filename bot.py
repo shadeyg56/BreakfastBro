@@ -25,6 +25,15 @@ async def on_ready():
     print("ID: {}".format(bot.user.id))
     print('DV: {}'.format(discord.__version__))
     await bot.change_presence(game=discord.Game(name='as Food Delivery testing. | Darkness not working atm'))
+    with open('ids.json') as f:
+        data = json.loads(f.read())
+        data['unclaimed'] = 'null'
+        data['cooking'] = 'null'
+        data['cooked'] = 'null'
+        data = json.dumps(data, indent=4, sort_keys=True)
+    with open('ids.json') as f:
+        f.write(data)
+    
     
 @bot.event
 async def on_command_error(error, ctx):
