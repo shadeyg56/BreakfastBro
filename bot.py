@@ -141,7 +141,7 @@ async def deliver(ctx, orderid: str):
         await bot.say('That order doesnt exist')
         
 @bot.command(pass_context=True)
-async def claim(ctx, orderid: str)
+async def claim(ctx, orderid: str):
 with open('ids.json') as f:
     user = ctx.message.author
     data = json.loads(f.read())
