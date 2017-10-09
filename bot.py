@@ -68,24 +68,17 @@ async def order(ctx, *, food: str):
     num = random.randint(0, 100)
     kitchen = bot.get_channel('366325015488233493')
     id2 = id[num]
-    bot.customer = ctx.message.author.id
+    user = ctx.message.author
     await bot.say('Got it. Headed to the kitchen now. Your order ID is {}'.format(id2))
     embed = discord.Embed(title='New Order, ID: {}'.format(id2), description=food, color=0xed)
     embed.set_author(name='{} | {}'.format(ctx.message.author, ctx.message.author.id), icon_url=ctx.message.author.avatar_url)
     embed.set_footer(text='From: {} | {}'.format(ctx.message.server, ctx.message.server.id))
     await bot.send_message(kitchen, embed=embed)
-    with open('ids.json') as f:
-        data = json.loads(f.read())
-        data[bot.customer] = 'unclaimed', id2
-        data = json.dumps(data, indent=4, sort_keys=True)
+    data = json.loads(open('ids.json')
+    data[user.id]["unclaimed"] = id2
+    data = json.dumps(data, indent=4, sort_keys=True)
     with open('ids.json', 'w') as f:
          f.write(data)
-    with open('ids.json') as f:
-        data = json.loads(f.read())
-        data[bot.customer]['unclaimed'] = id2
-        data = json.dumps(data, indent=4, sort_keys=True)
-    with open('ids.json', 'w') as f:
-        f.write(data)
     bot.customer = ctx.message.author.id
     bot.food = '{}'.format(food)
     bot.channel = ctx.message.channel.id
