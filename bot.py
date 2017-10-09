@@ -25,14 +25,7 @@ async def on_ready():
     print("ID: {}".format(bot.user.id))
     print('DV: {}'.format(discord.__version__))
     await bot.change_presence(game=discord.Game(name='Currently being coded'))
-    with open('ids.json') as f:
-        data = json.loads(f.read())
-        data['unclaimed'] = 'null'
-        data['cooking'] = 'null'
-        data['cooked'] = 'null'
-        data = json.dumps(data, indent=4, sort_keys=True)
-    with open('ids.json', 'w') as f:
-        f.write(data)
+    
     
 async def send_cmd_help(ctx):
     if ctx.invoked_subcommand:
@@ -155,7 +148,8 @@ async def deliver(ctx, orderid: str):
             if ctx.message.channel.id == '366325049222889472':
                 await bot.say('{0.mention}, preparing your delivery'.format(ctx.message.author))
                 await bot.send_message(bot.formatted, '{} is now delivering your order. Your order will now be removed from the queue. Thanks for ordering from **Breakfest Bro**'.format(ctx.message.author))
-                data[bot.customer] = {}
+                data[bot.customer]["orderid"] = "order_deleted"
+                data[bot.customer]["status"] = 'order_deleted'
                 await asyncio.sleep(5)
                 invite = await bot.create_invite(channel)
                 await bot.send_message(ctx.message.author, 'Here is your delivery for {}: **{}**.\nServer Invite: {}\nFood pic: {}'.format(bot.formatted, bot.food, invite, bot.pic))
