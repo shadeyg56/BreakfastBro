@@ -61,6 +61,9 @@ async def on_command_error(error, ctx):
 @bot.command(pass_context=True)
 async def test(ctx):
     await bot.say('All systems operational')
+    dict = {'fruit': 'apple'}
+    await self.bot.say('{}'.format(len(dict)))
+    
     
 @bot.command(pass_context=True)
 async def order(ctx, *, food: str):
@@ -76,7 +79,7 @@ async def order(ctx, *, food: str):
     with open('ids.json') as f:
         data = json.loads(f.read())
         id1 = ['{}'.format(id2)]
-        data['unclaimed'][bot.customer] = id2
+        data['unclaimed']
         data = json.dumps(data, indent=4, sort_keys=True)
     with open('ids.json', 'w') as f:
         f.write(data)
