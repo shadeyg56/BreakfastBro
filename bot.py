@@ -132,7 +132,7 @@ async def cook(ctx, orderid: str, pic_url: str):
                 data = json.dumps(data, indent=4, sort_keys=True)
                 with open('ids.json',  'w') as f:
                      f.write(data)
-                await asyncio.sleep(5)
+                await asyncio.sleep(180)
                 with open('ids.json') as f:
                     data = json.loads(f.read())
                     data[bot.customer]["status"] = "cooked"
