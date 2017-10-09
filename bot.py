@@ -119,7 +119,7 @@ async def cook(ctx, orderid: str, pic_url: str = None):
                 data = json.loads(f.read())
                 data[bot.customer]["status"] = "cooked"
             await bot.send_message(delivery, embed=embed)
-            await bot.send_messags(bot.formatted, 'Your order has finished cooking and should be delivered soon')
+            await bot.send_message(bot.formatted, 'Your order has finished cooking and should be delivered soon')
             data = json.dumps(data, indent=4, sort_keys=True)
             with open('ids.json', 'w') as f:
                 f.write(data)
