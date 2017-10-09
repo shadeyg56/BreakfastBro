@@ -94,7 +94,8 @@ async def order(ctx, *, food: str):
 async def orders(ctx):
     with open('ids.json', 'r') as f:
         data = json.loads(f.read())
-        await bot.say(data)
+    await bot.say([bot.customer]["status"]
+    await bot.say([bot.customer]["orderid"]
         
 @bot.command(pass_context=True)
 async def cook(ctx, orderid: str, pic_url: str = None):
