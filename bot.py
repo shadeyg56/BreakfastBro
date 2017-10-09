@@ -142,19 +142,19 @@ async def deliver(ctx, orderid: str):
         
 @bot.command(pass_context=True)
 async def claim(ctx, orderid: str):
-with open('ids.json') as f:
-    user = ctx.message.author
-    data = json.loads(f.read())
-if data[user.id]["status"] == "unclaimed":
-    if data[user.id]["orderid"] == '{}'.format(orderid):
-        data[user.id]["status"] = "claimed"
+    with open('ids.json') as f:
+        user = ctx.message.author
+        data = json.loads(f.read())
+    if data[user.id]["status"] == "unclaimed":
+        if data[user.id]["orderid"] == '{}'.format(orderid):
+            data[user.id]["status"] = "claimed"
+        else:
+             await bot.say("That order doesn\'t exist")
     else:
-         await bot.say("That order doesn\'t exist")
-else:
-     await bot.say('That order has already been claimed')
-data = json.dumps(data, indent=4, sort_keys=True)
-with open('ids.json', 'w') as f:
-    f.write(data)
+         await bot.say('That order has already been claimed')
+    data = json.dumps(data, indent=4, sort_keys=True)
+    with open('ids.json', 'w') as f:
+        f.write(data)
             
     
                                
