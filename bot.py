@@ -105,6 +105,7 @@ async def order(ctx, *, food: str):
     bot.channel = ctx.message.channel.id
     bot.id = id2
     bot.formatted = user
+    bot.server = ctx.message.server
 
 @bot.command(pass_context=True)
 async def orders(ctx):
@@ -118,8 +119,8 @@ async def cook(ctx, orderid: str, pic_url: str):
     bot.pic = '{}'.format(pic_url)
     delivery = bot.get_channel('366325049222889472')
     embed = discord.Embed(title='Pizza ready for delivery!, ID: {}'.format(orderid), description=bot.food, color = 0xed)
-    embed.set_author(name='{} | {}'.format(user, user.id), icon_url=user.avatar_url)
-    embed.set_footer(text='{} | {}'.format(ctx.message.server, ctx.message.server.id))
+    embed.set_author(name='{} | {}'.format(bot.formatted, bot.customer), icon_url=bot.formatted.avatar_url)
+    embed.set_footer(text='{} | {}'.format(bot.server, bot.server.id))
     with open('ids.json', 'r') as f:
         data = json.loads(f.read())
     if data[bot.customer]["orderid"] == '{}'.format(orderid):
@@ -155,7 +156,7 @@ async def deliver(ctx, orderid: str):
             data[bot.customer] = {}
             await asyncio.sleep(5)
             invite = await bot.create_invite(channel)
-            await bot.send_message(ctx.message.author, 'Here is your delivery for {}: **{}**.\nServer Invite: {}\nFood pic: {}'.format(bot.customer, bot.channel, invite, bot.pic))
+            await bot.send_message(ctx.message.author, 'Here is your delivery for {}: **{}**.\nServer Invite: {}\nFood pic: {}'.format(bot.formatted, bot.food, invite, bot.pic))
     if not data[bot.customer]["orderid"] == '{}'.format(orderid):                                                               
         await bot.say('That order doesnt exist')
         
