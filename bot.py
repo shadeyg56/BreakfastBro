@@ -96,7 +96,8 @@ async def orders(ctx):
         data = json.loads(f.read())
     await bot.say(data[bot.customer]["status"])
     await bot.say(data[bot.customer]["orderid"])
-        
+    x = data.items()
+    await bot.say(x)
 @bot.command(pass_context=True)
 async def cook(ctx, orderid: str, pic_url: str = None):
     user = ctx.message.author
