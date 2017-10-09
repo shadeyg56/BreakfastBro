@@ -125,7 +125,7 @@ async def cook(ctx, orderid: str, pic_url: str):
         data = json.loads(f.read())
     if data[bot.customer]["orderid"] == '{}'.format(orderid):
         if data[bot.customer]["status"] == "claimed":
-            if ctx.message.channel.id == '<#366325015488233493>':
+            if ctx.message.channel.id == '366325015488233493':
                 await bot.say('{0.mention}, cooking order {1}'.format(ctx.message.author, orderid))
                 await bot.send_message(bot.formatted, '{} has began cooking your order. This process takes about 3 minutes'.format(ctx.message.author))
                 data[bot.customer]["status"] = "cooking"
@@ -152,7 +152,7 @@ async def deliver(ctx, orderid: str):
     formatted = '<@' + bot.customer + '>'
     if data[bot.customer]["orderid"] == '{}'.format(orderid):
         if data[bot.customer]["status"] == "cooked":
-            if ctx.message.channel.id == '<#366325049222889472>':
+            if ctx.message.channel.id == '366325049222889472':
                 await bot.say('{0.mention}, preparing your delivery'.format(ctx.message.author))
                 await bot.send_message(bot.formatted, '{} is now delivering your order. Your order will now be removed from the queue. Thanks for ordering from **Breakfest Bro**'.format(ctx.message.author))
                 data[bot.customer] = {}
@@ -169,7 +169,7 @@ async def claim(ctx, orderid: str):
         data = json.loads(f.read())
     if data[bot.customer]["status"] == "unclaimed":
         if data[bot.customer]["orderid"] == '{}'.format(orderid):
-            if ctx.message.channel.id == '<#366325015488233493>':    
+            if ctx.message.channel.id == '366325015488233493':    
                 data[bot.customer]["status"] = "claimed"
                 await bot.say('{0.mention}, You claimed order {1}'.format(ctx.message.author, orderid))
                 await bot.send_message(bot.formatted, '{} has claimed your order. They should start cooking it soon'.format(ctx.message.author))
