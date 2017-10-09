@@ -75,10 +75,12 @@ async def order(ctx, *, food: str):
     embed.set_footer(text='From: {} | {}'.format(ctx.message.server, ctx.message.server.id))
     await bot.send_message(kitchen, embed=embed)
     data = json.loads(open('ids.json').read())
-    data[user.id]["unclaimed"] = id2
+    data[user.id] = None
     data = json.dumps(data, indent=4, sort_keys=True)
     with open('ids.json', 'w') as f:
          f.write(data)
+    data = json.loads(open('ids.json').read())
+    data[user.id]["unclaimed"] = id2
     bot.customer = ctx.message.author.id
     bot.food = '{}'.format(food)
     bot.channel = ctx.message.channel.id
