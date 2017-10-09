@@ -104,13 +104,21 @@ async def cook(ctx, orderid: str, pic_url: str = None):
     embed.set_footer(text='{} | {}'.format(ctx.message.server, ctx.message.server.id))
     with open('ids.json', 'r') as f:
         data = json.loads(f.read())
-    if '{}'.format(orderid) in data.values():
+    if '{}'.format(orderid) in data.keys():
         await bot.say('{0.mention}, cooking order {1}'.format(ctx.message.author, orderid))
-        data['Cooking'] = bot.id
+        data[user.id][bot.id] = "cooking"
+        data = json.dumps(data, indent=4, sort_keys=True)
+        with open('ids.json',  'w') as f:
+             f.write(data)
         await asyncio.sleep(5)
+        with open('ids.json') as f:
+            data = json.loads(f.read())
+            data[user.id][bot.id] = "cooked"]
         await bot.send_message(delivery, embed=embed)
-        data['Cooked'] = bot.id
-    if not '{}'.format(orderid) in data.values():
+            data = json.dumps(data, indent=4, sort_keys=True)
+        with open('ids.json', 'w') as f:
+            f.write(data)
+     if not '{}'.format(orderid) in data.keys():
         await bot.say('That order doesn\'t exist')
     if pic_url == None:
         bot.pic = 'None'
