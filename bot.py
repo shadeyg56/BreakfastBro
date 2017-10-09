@@ -77,7 +77,8 @@ async def order(ctx, *, food: str):
     with open('ids.json') as f:
         data = json.loads(f.read())
         id1 = ['{}'.format(id2)]
-        data['unclaimed'][ctx.message.author.id] = id2
+        data[bot.customer]
+        data[bot.customer]['unclaimed'] = id2
         data = json.dumps(data, indent=4, sort_keys=True)
     with open('ids.json', 'w') as f:
         f.write(data)
