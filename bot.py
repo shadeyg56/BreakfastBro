@@ -77,7 +77,7 @@ async def order(ctx, *, food: str):
     with open('ids.json') as f:
         data = json.loads(f.read())
         data[bot.customer]
-    with open('ids.json', 'w' as f:
+    with open('ids.json', 'w') as f:
          f.write(data)
     with open('ids.json') as f:
         data = json.loads(f.read())
