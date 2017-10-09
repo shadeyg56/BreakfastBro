@@ -81,7 +81,7 @@ async def order(ctx, *, food: str):
          f.write(data)
     data = json.loads(open('ids.json').read())
     data[user.id]["unclaimed"] = id2
-    data = json.dumps(data, indent4, sort_keys=True)
+    data = json.dumps(data, indent=4, sort_keys=True)
     with open('ids.json', 'w') as f:
          f.write(data)
     bot.customer = ctx.message.author.id
