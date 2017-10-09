@@ -104,7 +104,7 @@ async def cook(ctx, orderid: str, pic_url: str = None):
     embed.set_footer(text='{} | {}'.format(ctx.message.server, ctx.message.server.id))
     with open('ids.json', 'r') as f:
         data = json.loads(f.read())
-    if '{}'.format(orderid) in data.keys():
+    if '{}'.format(orderid) in data.values():
         await bot.say('{0.mention}, cooking order {1}'.format(ctx.message.author, orderid))
         data[user.id][bot.id] = "cooking"
         data = json.dumps(data, indent=4, sort_keys=True)
@@ -118,7 +118,7 @@ async def cook(ctx, orderid: str, pic_url: str = None):
         data = json.dumps(data, indent=4, sort_keys=True)
         with open('ids.json', 'w') as f:
             f.write(data)
-    if not '{}'.format(orderid) in data.keys():
+    if not '{}'.format(orderid) in data.values():
         await bot.say('That order doesn\'t exist')
     if pic_url == None:
         bot.pic = 'None'
