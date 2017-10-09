@@ -31,7 +31,7 @@ async def on_ready():
         data['cooking'] = 'null'
         data['cooked'] = 'null'
         data = json.dumps(data, indent=4, sort_keys=True)
-    with open('ids.json') as f:
+    with open('ids.json', 'w') as f:
         f.write(data)
     
     
