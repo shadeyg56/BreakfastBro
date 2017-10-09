@@ -105,20 +105,21 @@ async def cook(ctx, orderid: str, pic_url: str = None):
     embed.set_footer(text='{} | {}'.format(ctx.message.server, ctx.message.server.id))
     with open('ids.json', 'r') as f:
         data = json.loads(f.read())
-    if data[user.id]["unclaimed"] == '{}'.format(orderid):
-        await bot.say('{0.mention}, cooking order {1}'.format(ctx.message.author, orderid))
-        data[user.id][bot.id] = "cooking"
-        data = json.dumps(data, indent=4, sort_keys=True)
-        with open('ids.json',  'w') as f:
-             f.write(data)
-        await asyncio.sleep(5)
-        with open('ids.json') as f:
-            data = json.loads(f.read())
-            data[bot.customer][bot.id] = "cooked"
-        await bot.send_message(delivery, embed=embed)
-        data = json.dumps(data, indent=4, sort_keys=True)
-        with open('ids.json', 'w') as f:
-            f.write(data)
+    if data[bot.customer]["orderid"] == '{}'.format(orderid):
+        if data[bot.customer]["status"] == "claimed":
+            await bot.say('{0.mention}, cooking order {1}'.format(ctx.message.author, orderid))
+            data[bot.customer]["status"] = "cooking"
+            data = json.dumps(data, indent=4, sort_keys=True)
+            with open('ids.json',  'w') as f:
+                 f.write(data)
+            await asyncio.sleep(5)
+            with open('ids.json') as f:
+                data = json.loads(f.read())
+                data[bot.customer]["status"] = "cooked"
+            await bot.send_message(delivery, embed=embed)
+            data = json.dumps(data, indent=4, sort_keys=True)
+            with open('ids.json', 'w') as f:
+                f.write(data)
     if not data[bot.customer] == '{}'.format(orderid):
         await bot.say('That order doesn\'t exist')
     if pic_url == None:
@@ -132,12 +133,13 @@ async def deliver(ctx, orderid: str):
         data = json.loads(f.read())
     channel = bot.get_channel(bot.channel)
     formatted = '<@' + bot.customer + '>'
-    if '{}'.format(orderid) in data.values():
-        await bot.say('{0.mention}, preparing your delivery'.format(ctx.message.author))
-        await asyncio.sleep(5)
-        invite = await bot.create_invite(channel)
-        await bot.send_message(ctx.message.author, 'Here is your delivery for {}: **{}**.\nServer Invite: {}\nFood pic: {}'.format(bot.customer, bot.channel, invite, bot.pic))
-    if not '{}'.format(orderid) in data.values():                                                               
+    if [bot.customer]["orderid"] == '{}'.format(orderid):
+        if [bot.customer]["status"] == "cooked":
+            await bot.say('{0.mention}, preparing your delivery'.format(ctx.message.author))
+            await asyncio.sleep(5)
+            invite = await bot.create_invite(channel)
+            await bot.send_message(ctx.message.author, 'Here is your delivery for {}: **{}**.\nServer Invite: {}\nFood pic: {}'.format(bot.customer, bot.channel, invite, bot.pic))
+    if not [bot.customer]["orderid"] == '{}'.format(orderid):                                                               
         await bot.say('That order doesnt exist')
         
 @bot.command(pass_context=True)
