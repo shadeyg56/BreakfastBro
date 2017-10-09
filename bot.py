@@ -115,7 +115,7 @@ async def cook(ctx, orderid: str, pic_url: str = None):
             data = json.loads(f.read())
             data[user.id][bot.id] = "cooked"
         await bot.send_message(delivery, embed=embed)
-            data = json.dumps(data, indent=4, sort_keys=True)
+        data = json.dumps(data, indent=4, sort_keys=True)
         with open('ids.json', 'w') as f:
             f.write(data)
      if not '{}'.format(orderid) in data.keys():
