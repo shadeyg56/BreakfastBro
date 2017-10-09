@@ -34,7 +34,22 @@ async def on_ready():
     with open('ids.json', 'w') as f:
         f.write(data)
     
-    
+async def send_cmd_help(ctx):
+    if ctx.invoked_subcommand:
+        pages = bot.formatter.format_help_for(ctx, ctx.invoked_subcommand)
+        for page in pages:
+            # page = page.strip('```css').strip('```')
+
+
+            await bot.send_message(ctx.message.channel, page)
+        print('Sent command help')
+    else:
+        pages = bot.formatter.format_help_for(ctx, ctx.command)
+        for page in pages:
+            await bot.send_message(ctx.message.channel, page)
+        print('Sent command help')  
+
+
 @bot.event
 async def on_command_error(error, ctx):
    print(error)
@@ -125,10 +140,7 @@ async def cook(ctx, orderid: str, pic_url: str):
                 f.write(data)
     if not data[bot.customer] == '{}'.format(orderid):
         await bot.say('That order doesn\'t exist')
-    if pic_url == None:
-        bot.pic = 'None'
-    if not pic_url == None:
-        bot.pic = pic_url
+    bot.pic = pic_url
     
 @bot.command(pass_context=True)
 async def deliver(ctx, orderid: str):
