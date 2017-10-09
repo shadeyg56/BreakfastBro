@@ -148,7 +148,7 @@ async def claim(ctx, orderid: str):
     if data[user.id]["status"] == "unclaimed":
         if data[user.id]["orderid"] == '{}'.format(orderid):
             data[user.id]["status"] = "claimed"
-            await bot.say('{0.mention}, You claimed order {1}'.format(ctx.message.auuthor, orderid))
+            await bot.say('{0.mention}, You claimed order {1}'.format(ctx.message.author, orderid))
         else:
              await bot.say("That order doesn\'t exist")
     else:
