@@ -62,7 +62,7 @@ async def on_command_error(error, ctx):
 async def test(ctx):
     await bot.say('All systems operational')
     dict = {'fruit': 'apple'}
-    await self.bot.say('{}'.format(len(dict)))
+    await bot.say('{}'.format(len(dict)))
     
     
 @bot.command(pass_context=True)
