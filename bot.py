@@ -115,6 +115,7 @@ async def orders(ctx):
 @bot.command(pass_context=True)
 async def cook(ctx, orderid: str, pic_url: str):
     user = ctx.message.author
+    bot.pic = '{}'.format(pic_url)
     delivery = bot.get_channel('366325049222889472')
     embed = discord.Embed(title='Pizza ready for delivery!, ID: {}'.format(orderid), description=bot.food, color = 0xed)
     embed.set_author(name='{} | {}'.format(user, user.id), icon_url=user.avatar_url)
@@ -140,7 +141,6 @@ async def cook(ctx, orderid: str, pic_url: str):
                 f.write(data)
     if not data[bot.customer] == '{}'.format(orderid):
         await bot.say('That order doesn\'t exist')
-    bot.pic = pic_url
     
 @bot.command(pass_context=True)
 async def deliver(ctx, orderid: str):
