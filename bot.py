@@ -113,7 +113,7 @@ async def cook(ctx, orderid: str, pic_url: str = None):
         await asyncio.sleep(5)
         with open('ids.json') as f:
             data = json.loads(f.read())
-            data[user.id][bot.id] = "cooked"]
+            data[user.id][bot.id] = "cooked"
         await bot.send_message(delivery, embed=embed)
             data = json.dumps(data, indent=4, sort_keys=True)
         with open('ids.json', 'w') as f:
