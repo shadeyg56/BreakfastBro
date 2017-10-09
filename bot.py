@@ -61,8 +61,6 @@ async def on_command_error(error, ctx):
 @bot.command(pass_context=True)
 async def test(ctx):
     await bot.say('All systems operational')
-    dict = {'fruit': 'apple', 'tasty': 'true', 'num':}
-    await bot.say('{}'.format(len(dict)))
     
     
 @bot.command(pass_context=True)
@@ -79,7 +77,7 @@ async def order(ctx, *, food: str):
     with open('ids.json') as f:
         data = json.loads(f.read())
         id1 = ['{}'.format(id2)]
-        data['unclaimed']
+        data['unclaimed'][ctx.message.author.id] = id2
         data = json.dumps(data, indent=4, sort_keys=True)
     with open('ids.json', 'w') as f:
         f.write(data)
@@ -121,6 +119,7 @@ async def deliver(ctx, orderid: str):
     with open('ids.json', 'r') as f:
         data = json.loads(f.read())
     channel = bot.get_channel(bot.channel)
+    formatted = '<@' + bot.customer + '>'
     if '{}'.format(orderid) in data.values():
         await bot.say('{0.mention}, preparing your delivery'.format(ctx.message.author))
         await asyncio.sleep(5)
