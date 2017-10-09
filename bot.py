@@ -169,7 +169,7 @@ async def claim(ctx, orderid: str):
         data = json.loads(f.read())
     if data[bot.customer]["status"] == "unclaimed":
         if data[bot.customer]["orderid"] == '{}'.format(orderid):
-        if ctx.message.channel.id == '<#366325015488233493>':    
+            if ctx.message.channel.id == '<#366325015488233493>':    
                 data[bot.customer]["status"] = "claimed"
                 await bot.say('{0.mention}, You claimed order {1}'.format(ctx.message.author, orderid))
                 await bot.send_message(bot.formatted, '{} has claimed your order. They should start cooking it soon'.format(ctx.message.author))
