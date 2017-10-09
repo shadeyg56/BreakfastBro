@@ -80,7 +80,8 @@ async def order(ctx, *, food: str):
     with open('ids.json', 'w') as f:
          f.write(data)
     data = json.loads(open('ids.json').read())
-    data[user.id]["unclaimed"] = id2
+    data[user.id]["orderid"] = id2
+    data[user.id]["status"] = "unclaimed"
     data = json.dumps(data, indent=4, sort_keys=True)
     with open('ids.json', 'w') as f:
          f.write(data)
@@ -138,6 +139,24 @@ async def deliver(ctx, orderid: str):
         await bot.send_message(ctx.message.author, 'Here is your delivery for {}: **{}**.\nServer Invite: {}\nFood pic: {}'.format(bot.customer, bot.channel, invite, bot.pic))
     if not '{}'.format(orderid) in data.values():                                                               
         await bot.say('That order doesnt exist')
+        
+@bot.command(pass_context=True)
+async def claim(ctx, orderid: str)
+with open('ids.json') as f:
+    user = ctx.message.author
+    data = json.loads(f.read())
+if data[user.id]["status"] == "unclaimed":
+    if data[user.id]["orderid"] == '{}'.format(orderid):
+        data[user.id]["status"] = "claimed"
+    else:
+         await bot.say("That order doesn\'t exist")
+else:
+     await bot.say('That order has already been claimed')
+data = json.dumps(data, indent=4, sort_keys=True)
+with open('ids.json', 'w') as f:
+    f.write(data)
+            
+    
                                
   
 
