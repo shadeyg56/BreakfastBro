@@ -136,13 +136,13 @@ async def deliver(ctx, orderid: str):
         data = json.loads(f.read())
     channel = bot.get_channel(bot.channel)
     formatted = '<@' + bot.customer + '>'
-    if [bot.customer]["orderid"] == '{}'.format(orderid):
-        if [bot.customer]["status"] == "cooked":
+    if data[bot.customer]["orderid"] == '{}'.format(orderid):
+        if data[bot.customer]["status"] == "cooked":
             await bot.say('{0.mention}, preparing your delivery'.format(ctx.message.author))
             await asyncio.sleep(5)
             invite = await bot.create_invite(channel)
             await bot.send_message(ctx.message.author, 'Here is your delivery for {}: **{}**.\nServer Invite: {}\nFood pic: {}'.format(bot.customer, bot.channel, invite, bot.pic))
-    if not [bot.customer]["orderid"] == '{}'.format(orderid):                                                               
+    if not data[bot.customer]["orderid"] == '{}'.format(orderid):                                                               
         await bot.say('That order doesnt exist')
         
 @bot.command(pass_context=True)
