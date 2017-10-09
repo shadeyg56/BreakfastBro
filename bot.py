@@ -80,7 +80,7 @@ async def order(ctx, *, food: str):
     with open('ids.json', 'w') as f:
          f.write(data)
     data = json.loads(open('ids.json').read())
-    data[user.id][id2] = "unclaimed"
+    data[user.id]["unclaimed"] = id2
     data = json.dumps(data, indent=4, sort_keys=True)
     with open('ids.json', 'w') as f:
          f.write(data)
@@ -104,7 +104,7 @@ async def cook(ctx, orderid: str, pic_url: str = None):
     embed.set_footer(text='{} | {}'.format(ctx.message.server, ctx.message.server.id))
     with open('ids.json', 'r') as f:
         data = json.loads(f.read())
-    if data[user.id] == '{}'.format(orderid):
+    if data[user.id]["unclaimed" == '{}'.format(orderid):
         await bot.say('{0.mention}, cooking order {1}'.format(ctx.message.author, orderid))
         data[user.id][bot.id] = "cooking"
         data = json.dumps(data, indent=4, sort_keys=True)
