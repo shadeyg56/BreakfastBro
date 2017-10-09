@@ -114,12 +114,12 @@ async def cook(ctx, orderid: str, pic_url: str = None):
         await asyncio.sleep(5)
         with open('ids.json') as f:
             data = json.loads(f.read())
-            data[user.id][bot.id] = "cooked"
+            data[bot.customer][bot.id] = "cooked"
         await bot.send_message(delivery, embed=embed)
         data = json.dumps(data, indent=4, sort_keys=True)
         with open('ids.json', 'w') as f:
             f.write(data)
-    if not data[user.id] == '{}'.format(orderid):
+    if not data[bot.customer] == '{}'.format(orderid):
         await bot.say('That order doesn\'t exist')
     if pic_url == None:
         bot.pic = 'None'
@@ -145,9 +145,9 @@ async def claim(ctx, orderid: str):
     with open('ids.json') as f:
         user = ctx.message.author
         data = json.loads(f.read())
-    if data[user.id]["status"] == "unclaimed":
-        if data[user.id]["orderid"] == '{}'.format(orderid):
-            data[user.id]["status"] = "claimed"
+    if data[bot.customer]["status"] == "unclaimed":
+        if data[bot.customer]["orderid"] == '{}'.format(orderid):
+            data[bot.customer]["status"] = "claimed"
             await bot.say('{0.mention}, You claimed order {1}'.format(ctx.message.author, orderid))
         else:
              await bot.say("That order doesn\'t exist")
