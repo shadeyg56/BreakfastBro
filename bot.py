@@ -11,7 +11,7 @@ if 'TOKEN' in os.environ:
     heroku = True
     TOKEN = os.environ['TOKEN']
     
-bot = commands.Bot(command_prefix='tbd')
+bot = commands.Bot(command_prefix='b.')
 
 id = ["gH1iT","jyRgE","TDq8s","jm2Q2","pbImA","OHKNp","Qov2Z","YW7jX","a4Oxt","vEK3t","iBwfM","s2tbO","zODd6","SyaLj","v2zAr","lh5un","VHwam","BRrla","UuQbt","KM7xv","5XtBL","V5rSC","K1eNh","rSU1q","4JKIa","a3o6b","PHPM5","7OXV1","OvaKB","yfN8M","PBEM1","jPqR2","VBTWo","8L0TE","KEDIM","AqbnA","mubnT","5KhwA","BDPL6","F1apM","6BOhM","3ZNSl","OGtpG","xi4JQ","62QLj","qFcB2","fBLGf","XjhYH","VSnQt","aSLx2","6hlSM","xa9ke","AGkPf","Lw4Gb","keg6Z","EwKeR","mePOU","X1thm","qdBRw","ml5X8","MspNi","xru7y","ljUqJ","dte33","w42nH","JMmBX","C8OOh","5hxSd","8flA7","By4x6","XAPNO","Aw1tc","QAwR2","o2Oh6","unN09","ZEOHN","4wA9p","Qv0zi","BuXBM","3w3fM","P9z3u","WbuY6","8z1do","H4Nn6","XRE08","28iFw","YQWcz","KN3Fc","F292c","aizlk","aTwWy","Vyzt5","f8w76","nRFsP","5b2YG","a3keE","8t9HJ","UYRf6","zByTY","NgPvP"]
 
@@ -24,7 +24,7 @@ async def on_ready():
     print('Author: shadeyg56')
     print("ID: {}".format(bot.user.id))
     print('DV: {}'.format(discord.__version__))
-    await bot.change_presence(game=discord.Game(name='as Food Delivery testing. | Darkness not working atm'))
+    await bot.change_presence(game=discord.Game(name='Currently being coded'))
     with open('ids.json') as f:
         data = json.loads(f.read())
         data['unclaimed'] = 'null'
@@ -112,12 +112,6 @@ async def cook(ctx, orderid: str, pic_url: str = None):
         bot.pic = 'None'
     if not pic_url == None:
         bot.pic = pic_url
-        
-@bot.event
-async def on_message(message):
-    if message.content.startswith('d.'):
-        await bot.send_message(message.channel, 'Sorry, but Darkness isn\'t available for use right now. It is currently being used for testing and should be up soon. Sorry for the inconvience. -Shadeyyy, Darkness Dev')
-    await bot.process_commands(message)
     
 @bot.command(pass_context=True)
 async def deliver(ctx, orderid: str):
