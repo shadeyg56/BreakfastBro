@@ -98,7 +98,7 @@ async def order(ctx, *, food: str):
     data[id2]["status"] = "unclaimed"
     data[id2]["user"] = user.id
     data[id2]["food"] = food
-    data[id2["server"] = ctx.message.server.id
+    data[id2]["server"] = ctx.message.server.id
     data[id2]["channel"] = ctx.message.channel.id
     data = json.dumps(data, indent=4, sort_keys=True)
     with open('ids.json', 'w') as f:
