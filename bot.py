@@ -223,7 +223,7 @@ async def delorder(ctx, orderid: str, *, reason: str):
         f.write(data)
                                  
                                  
-@bot.command
+@bot.command()
 async def server():
     await bot.say('Join the official **Breakfast Bro server: https://discord.gg/BWf8Saz')                            
     
