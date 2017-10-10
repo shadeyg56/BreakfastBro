@@ -133,7 +133,7 @@ async def cook(ctx, orderid: str, pic_url: str):
                 food = data[orderid]["food"]
                 embed = discord.Embed(title='New order. ID: {}'.format(orderid), description = food, color=0xed, timestamp=ctx.message.timestamp)
                 embed.set_author(name='{} | {}'.format(x, x.id), icon_url=x.avatar_url)
-                embed.set_footer(name='Sent from: {} | {}'.format(server, server.id)                
+                embed.set_footer(name='Sent from: {} | {}'.format(server, server.id))               
                 await bot.say('{0.mention}, cooking order {1}'.format(ctx.message.author, orderid))
                 await bot.send_message(x, '{} has began cooking your order. This process takes about 3 minutes'.format(ctx.message.author))
                 data[orderid]["pic_url"] = pic_url
