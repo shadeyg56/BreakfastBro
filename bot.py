@@ -195,7 +195,7 @@ async def delorder(ctx, orderid: str, reason: str):
         food = data[orderid]["food"]
         customer = data[orderid]["user"]
     if ctx.message.channel.id == '366325015488233493' or ctx.message.channel.id == '366325049222889472':
-        if data[orderid]["orderid"] == '{}'.format(orderid)
+        if data[orderid]["orderid"] == '{}'.format(orderid):
             data[orderid]["orderid"] = "deleted"
             data[orderid]["status"] = "deleted"
             data[orderid]["reason"] = reason
