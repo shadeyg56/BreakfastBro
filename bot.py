@@ -225,7 +225,13 @@ async def delorder(ctx, orderid: str, *, reason: str):
                                  
 @bot.command()
 async def server():
-    await bot.say('Join the official **Breakfast Bro server: https://discord.gg/BWf8Saz')                            
+    await bot.say('Join the official **Breakfast Bro server: https://discord.gg/BWf8Saz')           
+    
+@bot.command()
+async def servers():
+    servers = [x.name for x in bot.servers]
+    await bot.say(servers)
+
     
                                
   
