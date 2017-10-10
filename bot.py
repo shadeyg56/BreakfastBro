@@ -197,7 +197,7 @@ async def delorder(ctx, orderid: str, reason: str):
         data = json.loads(f.read())
         food = data[orderid]["food"]
         customer = data[orderid]["user"]
-        customer = discord.utils.get(bot.get_all_members(), id=x)
+        customer = discord.utils.get(bot.get_all_members(), id=customer)
     if ctx.message.channel.id == '366325015488233493' or ctx.message.channel.id == '366325049222889472':
         if data[orderid]["orderid"] == '{}'.format(orderid):
             data[orderid]["orderid"] = "deleted"
