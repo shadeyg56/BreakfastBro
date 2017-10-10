@@ -147,7 +147,6 @@ async def deliver(ctx, orderid: str):
     with open('ids.json', 'r') as f:
         data = json.loads(f.read())
     channel = bot.get_channel(bot.channel)
-    formatted = '<@' +  + '>'
     if data[orderid]["orderid"] == '{}'.format(orderid):
         if data[orderid]["status"] == "cooked":
             if ctx.message.channel.id == '366325049222889472':
