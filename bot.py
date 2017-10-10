@@ -122,7 +122,7 @@ async def cook(ctx, orderid: str, pic_url: str):
         if data[orderid]["status"] == "claimed":
             if ctx.message.channel.id == '366325015488233493':
                 x = data[orderid]["user"]
-                x = '<@' + x + '>'
+                x = discord.utils.get(bot.users, id=x)
                 await bot.say('{0.mention}, cooking order {1}'.format(ctx.message.author, orderid))
                 await bot.send_message(x, '{} has began cooking your order. This process takes about 3 minutes'.format(ctx.message.author))
                 data[orderid]["pic_url"] = pic_url
@@ -152,7 +152,7 @@ async def deliver(ctx, orderid: str):
         if data[orderid]["status"] == "cooked":
             if ctx.message.channel.id == '366325049222889472':
                 x = data[orderid]["user"]
-                x = '<@' + x + '>'
+                x = discord.utils.get(bot.users, id=x)
                 food = data[orderid]["food"]
                 await bot.say('{0.mention}, preparing your delivery'.format(ctx.message.author))
                 await bot.send_message(x, '{} is now delivering your order. Your order will now be removed from the queue. Thanks for ordering from **Breakfast Bro**'.format(ctx.message.author))
@@ -175,7 +175,7 @@ async def claim(ctx, orderid: str):
             if ctx.message.channel.id == '366325015488233493':    
                 data[orderid]["status"] = "claimed"
                 x = data[orderid]['user']
-                x = '<@' + x + '>'
+                x = discord.utils.get(bot.users, id=x)
                 await bot.say('{0.mention}, You claimed order {1}'.format(ctx.message.author, orderid))
                 await bot.send_message(x, '{} has claimed your order. They should start cooking it soon'.format(ctx.message.author))
         else:
@@ -197,7 +197,7 @@ async def delorder(ctx, orderid: str, reason: str):
         data = json.loads(f.read())
         food = data[orderid]["food"]
         customer = data[orderid]["user"]
-        customer = '<@' + x + '>'
+        customer = discord.utils.get(bot.users, id=x)
     if ctx.message.channel.id == '366325015488233493' or ctx.message.channel.id == '366325049222889472':
         if data[orderid]["orderid"] == '{}'.format(orderid):
             data[orderid]["orderid"] = "deleted"
