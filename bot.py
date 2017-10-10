@@ -90,6 +90,8 @@ async def order(ctx, *, food: str):
     data = json.loads(open('ids.json').read())
     data[id2]["orderid"] = id2
     data[id2]["status"] = "unclaimed"
+    data[id2]["user"] = user
+    data[id2]["food"] = food
     data = json.dumps(data, indent=4, sort_keys=True)
     with open('ids.json', 'w') as f:
          f.write(data)
@@ -119,8 +121,10 @@ async def cook(ctx, orderid: str, pic_url: str):
     if data[orderid]["orderid"] == '{}'.format(orderid):
         if data[orderid]["status"] == "claimed":
             if ctx.message.channel.id == '366325015488233493':
+                x = data[orderid]["user"]
                 await bot.say('{0.mention}, cooking order {1}'.format(ctx.message.author, orderid))
-                await bot.send_message(bot.formatted, '{} has began cooking your order. This process takes about 3 minutes'.format(ctx.message.author))
+                await bot.send_message(user, '{} has began cooking your order. This process takes about 3 minutes'.format(ctx.message.author))
+                data[orderid]["pic_url"] = pic_url
                 data[orderid]["status"] = "cooking"
                 data = json.dumps(data, indent=4, sort_keys=True)
                 with open('ids.json',  'w') as f:
@@ -130,7 +134,7 @@ async def cook(ctx, orderid: str, pic_url: str):
                     data = json.loads(f.read())
                     data[orderid]["status"] = "cooked"
                 await bot.send_message(delivery, embed=embed)
-                await bot.send_message(bot.formatted, 'Your order has finished cooking and should be delivered soon')
+                await bot.send_message(user, 'Your order has finished cooking and should be delivered soon')
                 data = json.dumps(data, indent=4, sort_keys=True)
                 with open('ids.json', 'w') as f:
                     f.write(data)
@@ -146,13 +150,16 @@ async def deliver(ctx, orderid: str):
     if data[orderid]["orderid"] == '{}'.format(orderid):
         if data[orderid]["status"] == "cooked":
             if ctx.message.channel.id == '366325049222889472':
+                x = data[orderid]["user"]
+                food = data[orderid]["food"]
                 await bot.say('{0.mention}, preparing your delivery'.format(ctx.message.author))
-                await bot.send_message(bot.formatted, '{} is now delivering your order. Your order will now be removed from the queue. Thanks for ordering from **Breakfest Bro**'.format(ctx.message.author))
+                await bot.send_message(x, '{} is now delivering your order. Your order will now be removed from the queue. Thanks for ordering from **Breakfast Bro**'.format(ctx.message.author))
                 data[orderid]["orderid"] = "order_deleted"
                 data[orderid]["status"] = 'order_deleted'
+                url = data[orderid]['pic_url']
                 await asyncio.sleep(5)
                 invite = await bot.create_invite(channel)
-                await bot.send_message(ctx.message.author, 'Here is your delivery for {}: **{}**.\nServer Invite: {}\nFood pic: {}'.format(bot.formatted, bot.food, invite, bot.pic))
+                await bot.send_message(ctx.message.author, 'Here is your delivery for {}: **{}**.\nServer Invite: {}\nFood pic: {}'.format(x, food, invite, url))
     if not data[orderid]["orderid"] == '{}'.format(orderid):                                                               
         await bot.say('That order doesnt exist')
         
@@ -165,8 +172,9 @@ async def claim(ctx, orderid: str):
         if data[orderid]["orderid"] == '{}'.format(orderid):
             if ctx.message.channel.id == '366325015488233493':    
                 data[orderid]["status"] = "claimed"
+                x = data[orderid]['user']
                 await bot.say('{0.mention}, You claimed order {1}'.format(ctx.message.author, orderid))
-                await bot.send_message(bot.formatted, '{} has claimed your order. They should start cooking it soon'.format(ctx.message.author))
+                await bot.send_message(x, '{} has claimed your order. They should start cooking it soon'.format(ctx.message.author))
         else:
              await bot.say("That order doesn\'t exist")
     else:
@@ -179,6 +187,25 @@ async def claim(ctx, orderid: str):
 @bot.command(pass_context=True)
 async def invite(ctx):
     await bot.say('**Breakfast Bro Invite:** https://discordapp.com/oauth2/authorize?client_id=366768341026734080&scope=bot&permissions=66186303')
+    
+@bot.command(pass_context=True)
+async def delorder(ctx, orderid: str, reason: str):
+    with open('ids.json') as f:
+        data = json.loads(f.read())
+        food = data[orderid]["food"]
+        customer = data[orderid]["user"]
+    if ctx.message.channel.id == '366325015488233493' or if ctx.message.channel.id == '366325049222889472':
+        if data[orderid]["orderid"] == '{}'.format(orderid)
+            data[orderid]["orderid"] = "deleted"
+            data[orderid]["status"] = "deleted"
+            data[orderid]["reason"] = reason
+            await bot.send_message(customer, 'Your order for {} has been deleted by {} because {}'.format(food, ctx.message.author, reason))
+    if not data[orderid]["orderid"] == '{}'.format(orderid):
+        await bot.say('That order doesn\'t exist')
+    data = json.dumps(data, indent=4, sort_keys=True)
+    with open('ids.json', 'w') as f:
+        f.write(data)
+        
     
                                
   
