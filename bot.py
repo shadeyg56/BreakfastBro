@@ -27,9 +27,9 @@ async def on_ready():
     while 1 == 1:
         await bot.change_presence(game=discord.Game(name='b.order | Currently being coded'))
         await asyncio.sleep(5)
-        await bot.change_presence(name=discord.Game(name='b.order' | 'Providing breakfast to {} servers'.format(len(bot.servers)))
+        await bot.change_presence(name=discord.Game(name='b.order' | 'Providing breakfast to {} servers'.format(len(bot.servers))))
         await asyncio.sleep(5)
-        await bot.change_presence(game=discord.Game(name='b.order | b.invite | b.server')
+        await bot.change_presence(game=discord.Game(name='b.order | b.invite | b.server'))
         await asyncio.sleep(5)                         
     
     
