@@ -175,6 +175,10 @@ async def claim(ctx, orderid: str):
     with open('ids.json', 'w') as f:
         f.write(data)
             
+            
+@bot.command(pass_context=True)
+async def invite(ctx):
+    await bot.say('**Breakfast Bro Invite:** https://discordapp.com/oauth2/authorize?client_id=366768341026734080&scope=bot&permissions=66186303')
     
                                
   
