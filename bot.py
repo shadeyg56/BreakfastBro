@@ -24,7 +24,13 @@ async def on_ready():
     print('Author: shadeyg56')
     print("ID: {}".format(bot.user.id))
     print('DV: {}'.format(discord.__version__))
-    await bot.change_presence(game=discord.Game(name='Currently being coded'))
+    while 1 == 1:
+        await bot.change_presence(game=discord.Game(name='b.order | Currently being coded'))
+        await asyncio.sleep(5)
+        await bot.change_presence(name=discord.Game(name='b.order' | 'Providing breakfast to {} servers'.format(len(bot.servers)))
+        await asyncio.sleep(5)
+        await bot.change_presence(game=discord.Game(name='b.order | b.invite | b.server')
+        await asyncio.sleep(5)                         
     
     
 async def send_cmd_help(ctx):
@@ -92,6 +98,8 @@ async def order(ctx, *, food: str):
     data[id2]["status"] = "unclaimed"
     data[id2]["user"] = user.id
     data[id2]["food"] = food
+    data[id2["server"] = ctx.message.server.id
+    data[id2]["channel"] = ctx.message.channel.id
     data = json.dumps(data, indent=4, sort_keys=True)
     with open('ids.json', 'w') as f:
          f.write(data)
@@ -113,16 +121,19 @@ async def cook(ctx, orderid: str, pic_url: str):
     user = ctx.message.author
     bot.pic = '{}'.format(pic_url)
     delivery = bot.get_channel('366325049222889472')
-    embed = discord.Embed(title='Pizza ready for delivery!, ID: {}'.format(orderid), description=bot.food, color = 0xed)
-    embed.set_author(name='{} | {}'.format(bot.formatted, bot.customer), icon_url=bot.formatted.avatar_url)
-    embed.set_footer(text='{} | {}'.format(bot.server, bot.server.id))
     with open('ids.json', 'r') as f:
         data = json.loads(f.read())
     if data[orderid]["orderid"] == '{}'.format(orderid):
         if data[orderid]["status"] == "claimed":
             if ctx.message.channel.id == '366325015488233493':
                 x = data[orderid]["user"]
+                server_id = data[orderid]["server"]
+                server = discord.utils.get(bot.servers, id=server_id)
                 x = discord.utils.get(bot.get_all_members(), id=x)
+                food = data[orderid]["food"]
+                embed = discord.Embed(title='New order. ID: {}'.format(orderid), description = food, color=0xed, timestamp=ctx.message.timestamp)
+                embed.set_author(name='{} | {}'.format(x, x.id), icon_url=x.avatar_url)
+                embed.set_footer(name='Sent from: {} | {}'.format(server, server.id)                
                 await bot.say('{0.mention}, cooking order {1}'.format(ctx.message.author, orderid))
                 await bot.send_message(x, '{} has began cooking your order. This process takes about 3 minutes'.format(ctx.message.author))
                 data[orderid]["pic_url"] = pic_url
@@ -146,7 +157,8 @@ async def cook(ctx, orderid: str, pic_url: str):
 async def deliver(ctx, orderid: str):
     with open('ids.json', 'r') as f:
         data = json.loads(f.read())
-    channel = bot.get_channel(bot.channel)
+    invite = data[orderid]['channel']
+    channel = bot.get_channel(invite)
     if data[orderid]["orderid"] == '{}'.format(orderid):
         if data[orderid]["status"] == "cooked":
             if ctx.message.channel.id == '366325049222889472':
@@ -191,7 +203,7 @@ async def invite(ctx):
     await bot.say('**Breakfast Bro Invite:** https://discordapp.com/oauth2/authorize?client_id=366768341026734080&scope=bot&permissions=66186303')
     
 @bot.command(pass_context=True)
-async def delorder(ctx, orderid: str, reason: str):
+async def delorder(ctx, orderid: str, *, reason: str):
     with open('ids.json') as f:
         data = json.loads(f.read())
         food = data[orderid]["food"]
@@ -202,13 +214,18 @@ async def delorder(ctx, orderid: str, reason: str):
             data[orderid]["orderid"] = "deleted"
             data[orderid]["status"] = "deleted"
             data[orderid]["reason"] = reason
+            await bot.say('Order {} succesfully deleted'.format(orderid))                    
             await bot.send_message(customer, 'Your order for {} has been deleted by {} because {}'.format(food, ctx.message.author, reason))
-    if not data[orderid]["orderid"] == '{}'.format(orderid):
+    elif data[orderid]["orderid"] == '{}'.format(orderid):
         await bot.say('That order doesn\'t exist')
     data = json.dumps(data, indent=4, sort_keys=True)
     with open('ids.json', 'w') as f:
         f.write(data)
-        
+                                 
+                                 
+@bot.command
+async def server():
+    await bot.say('Join the official **Breakfast Bro server: https://discord.gg/BWf8Saz')                            
     
                                
   
