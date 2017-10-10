@@ -116,25 +116,25 @@ async def cook(ctx, orderid: str, pic_url: str):
     embed.set_footer(text='{} | {}'.format(bot.server, bot.server.id))
     with open('ids.json', 'r') as f:
         data = json.loads(f.read())
-    if data[bot.id]["orderid"] == '{}'.format(orderid):
-        if data[bot.id]["status"] == "claimed":
+    if data[orderid]["orderid"] == '{}'.format(orderid):
+        if data[orderid]["status"] == "claimed":
             if ctx.message.channel.id == '366325015488233493':
                 await bot.say('{0.mention}, cooking order {1}'.format(ctx.message.author, orderid))
                 await bot.send_message(bot.formatted, '{} has began cooking your order. This process takes about 3 minutes'.format(ctx.message.author))
-                data[bot.customer]["status"] = "cooking"
+                data[orderid]["status"] = "cooking"
                 data = json.dumps(data, indent=4, sort_keys=True)
                 with open('ids.json',  'w') as f:
                      f.write(data)
                 await asyncio.sleep(180)
                 with open('ids.json') as f:
                     data = json.loads(f.read())
-                    data[bot.id]["status"] = "cooked"
+                    data[orderid]["status"] = "cooked"
                 await bot.send_message(delivery, embed=embed)
                 await bot.send_message(bot.formatted, 'Your order has finished cooking and should be delivered soon')
                 data = json.dumps(data, indent=4, sort_keys=True)
                 with open('ids.json', 'w') as f:
                     f.write(data)
-    if not data[bot.id] == '{}'.format(orderid):
+    if not data[orderid] == '{}'.format(orderid):
         await bot.say('That order doesn\'t exist')
     
 @bot.command(pass_context=True)
@@ -143,17 +143,17 @@ async def deliver(ctx, orderid: str):
         data = json.loads(f.read())
     channel = bot.get_channel(bot.channel)
     formatted = '<@' + bot.customer + '>'
-    if data[bot.id]["orderid"] == '{}'.format(orderid):
-        if data[bot.id]["status"] == "cooked":
+    if data[orderid]["orderid"] == '{}'.format(orderid):
+        if data[orderid]["status"] == "cooked":
             if ctx.message.channel.id == '366325049222889472':
                 await bot.say('{0.mention}, preparing your delivery'.format(ctx.message.author))
                 await bot.send_message(bot.formatted, '{} is now delivering your order. Your order will now be removed from the queue. Thanks for ordering from **Breakfest Bro**'.format(ctx.message.author))
-                data[bot.id]["orderid"] = "order_deleted"
-                data[bot.id]["status"] = 'order_deleted'
+                data[orderid]["orderid"] = "order_deleted"
+                data[orderid]["status"] = 'order_deleted'
                 await asyncio.sleep(5)
                 invite = await bot.create_invite(channel)
                 await bot.send_message(ctx.message.author, 'Here is your delivery for {}: **{}**.\nServer Invite: {}\nFood pic: {}'.format(bot.formatted, bot.food, invite, bot.pic))
-    if not data[bot.id]["orderid"] == '{}'.format(orderid):                                                               
+    if not data[orderid]["orderid"] == '{}'.format(orderid):                                                               
         await bot.say('That order doesnt exist')
         
 @bot.command(pass_context=True)
@@ -161,10 +161,10 @@ async def claim(ctx, orderid: str):
     with open('ids.json') as f:
         user = ctx.message.author
         data = json.loads(f.read())
-    if data[bot.id]["status"] == "unclaimed":
-        if data[bot.id]["orderid"] == '{}'.format(orderid):
+    if data[orderid]["status"] == "unclaimed":
+        if data[orderid]["orderid"] == '{}'.format(orderid):
             if ctx.message.channel.id == '366325015488233493':    
-                data[bot.id]["status"] = "claimed"
+                data[orderid]["status"] = "claimed"
                 await bot.say('{0.mention}, You claimed order {1}'.format(ctx.message.author, orderid))
                 await bot.send_message(bot.formatted, '{} has claimed your order. They should start cooking it soon'.format(ctx.message.author))
         else:
