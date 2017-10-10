@@ -122,7 +122,7 @@ async def cook(ctx, orderid: str, pic_url: str):
         if data[orderid]["status"] == "claimed":
             if ctx.message.channel.id == '366325015488233493':
                 x = data[orderid]["user"]
-                x = '<@' + x + '>
+                x = '<@' + x + '>'
                 await bot.say('{0.mention}, cooking order {1}'.format(ctx.message.author, orderid))
                 await bot.send_message(x, '{} has began cooking your order. This process takes about 3 minutes'.format(ctx.message.author))
                 data[orderid]["pic_url"] = pic_url
