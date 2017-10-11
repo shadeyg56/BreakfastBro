@@ -267,7 +267,7 @@ async def blacklist(ctx, user_or_server_id: str):
                 data = json.dumps(data, indent=4, sort_keys=True)
             with open('blacklists.json', 'w') as f:
                 f.write(data)
-             await bot.say('Blacklist succesfully added')
+                await bot.say('Blacklist succesfully added')
         
 @bot.command()
 async def blacklists():
