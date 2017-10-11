@@ -238,7 +238,22 @@ async def servers():
     await bot.say(servers)
 
     
-                               
+@bot.command(pass_context=True)
+async def menu(ctx):
+    embed = discord.Embed(title='Menu', color=0xed)
+    embed.add_field(name='Food', value='Pancake\nWaffle\nFrench Toast\nBiscuites and Gravy\nBacon\nEggs\nOmelet\nOatmeal\nCereal')
+    embed.add_field(name='Drinks', value='Coffee\nHot Chocolate\nApple Juice\nOrange Juice')
+    await bot.say(embed=embed)
+             
+@bot.command(pass_context=True)
+async def suggest(ctx, *, suggestion: str):
+    channel = bot.get_channel('367504677039898624')
+    embed = discord.Embed(title='New Suggestion', color=0xed, description=suggestion, timestamp=ctx.message.timestamp)
+    embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+    embed.set_footer(text='Sent from: {}'.format(ctx.message.server))
+    x = await bot.send_message(channel, embed=embed)
+    await bot.add_reaction(x, \U00002705)
+    await bot.add_reaction(x, \U0000274c)
   
 
 bot.run(TOKEN)
