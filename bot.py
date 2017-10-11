@@ -87,22 +87,26 @@ async def order(ctx, *, food: str):
     embed = discord.Embed(title='New Order, ID: {}'.format(id2), description=food, color=0xed)
     embed.set_author(name='{} | {}'.format(ctx.message.author, ctx.message.author.id), icon_url=ctx.message.author.avatar_url)
     embed.set_footer(text='From: {} | {}'.format(ctx.message.server, ctx.message.server.id))
-    await bot.send_message(kitchen, embed=embed)
     data = json.loads(open('ids.json').read())
     data[id2] = {}
     data = json.dumps(data, indent=4, sort_keys=True)
     with open('ids.json', 'w') as f:
          f.write(data)
     data = json.loads(open('ids.json').read())
-    data[id2]["orderid"] = id2
-    data[id2]["status"] = "unclaimed"
-    data[id2]["user"] = user.id
-    data[id2]["food"] = food
-    data[id2]["server"] = ctx.message.server.id
-    data[id2]["channel"] = ctx.message.channel.id
-    data = json.dumps(data, indent=4, sort_keys=True)
-    with open('ids.json', 'w') as f:
-         f.write(data)
+    await bot.say('Are you sure you want to order this? Make sure your item(s) are on the menu otherwise your order will be automatically declined. Reply with yes or no')
+    msg = await bot.wait_for_message()
+    if msg == 'yes':
+        data[id2]["orderid"] = id2
+        data[id2]["status"] = "unclaimed"
+        data[id2]["user"] = user.id
+        data[id2]["food"] = food
+        data[id2]["server"] = ctx.message.server.id
+        data[id2]["channel"] = ctx.message.channel.id
+        data = json.dumps(data, indent=4, sort_keys=True)
+        with open('ids.json', 'w') as f:
+             f.write(data)
+    if msg == 'no':
+        await bot.say('Order cancelled')
     bot.customer = ctx.message.author.id
     bot.food = '{}'.format(food)
     bot.channel = ctx.message.channel.id
