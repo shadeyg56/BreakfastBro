@@ -260,7 +260,7 @@ async def suggest(ctx, *, suggestion: str):
 async def blacklist(ctx, user_or_server_id: str):
     role = discord.utils.get(ctx.message.author.roles, name='Manager')
     if ctx.message.server.id == '366323613005119491':
-        if role == True:
+        if role in ctx.message.author.roles:
             with open('blacklists.json') as f:
                 data = json.loads(f.read())
                 data["blacklists"] = user_or_server_id
