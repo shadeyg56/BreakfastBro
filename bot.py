@@ -83,7 +83,6 @@ async def order(ctx, *, food: str):
     kitchen = bot.get_channel('366325015488233493')
     id2 = id[num]
     user = ctx.message.author
-    await bot.say('Got it. Headed to the kitchen now. Your order ID is {}'.format(id2))
     embed = discord.Embed(title='New Order, ID: {}'.format(id2), description=food, color=0xed)
     embed.set_author(name='{} | {}'.format(ctx.message.author, ctx.message.author.id), icon_url=ctx.message.author.avatar_url)
     embed.set_footer(text='From: {} | {}'.format(ctx.message.server, ctx.message.server.id))
@@ -95,7 +94,8 @@ async def order(ctx, *, food: str):
     data = json.loads(open('ids.json').read())
     await bot.say('Are you sure you want to order this? Make sure your item(s) are on the menu otherwise your order will be automatically declined. Reply with yes or no')
     msg = await bot.wait_for_message()
-    if msg == 'yes':
+    if msg.content == 'yes':
+        await bot.say('Got it. Headed to the kitchen now. Your order ID is {}'.format(id2))
         data[id2]["orderid"] = id2
         data[id2]["status"] = "unclaimed"
         data[id2]["user"] = user.id
@@ -105,7 +105,7 @@ async def order(ctx, *, food: str):
         data = json.dumps(data, indent=4, sort_keys=True)
         with open('ids.json', 'w') as f:
              f.write(data)
-    if msg == 'no':
+    if msg.content == 'no':
         await bot.say('Order cancelled')
     bot.customer = ctx.message.author.id
     bot.food = '{}'.format(food)
