@@ -257,12 +257,12 @@ async def suggest(ctx, *, suggestion: str):
     await bot.add_reaction(x, '\U0000274c')
  
 @bot.command(pass_context=True)
-async def blacklist(ctx, user-or-server-id: str):
+async def blacklist(ctx, user_or_server_id: str):
     role = discord.utils.get(ctx.message.author.roles, name='Manager')
     if ctx.message.server.id == '366323613005119491' and if role == True:
         with open('blacklists.json') as f:
             data = json.loads(f.read())
-            data["blacklists"] = user-or-server-id
+            data["blacklists"] = user_or_server_id
         data = json.dumps(data, indent=4, sort_keys=True)
         with open('blacklists.json', 'w') as f:
             f.write(data)
