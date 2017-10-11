@@ -93,7 +93,7 @@ async def order(ctx, *, food: str):
          f.write(data)
     data = json.loads(open('ids.json').read())
     await bot.say('Are you sure you want to order this? Make sure your item(s) are on the menu otherwise your order will be automatically declined. Reply with yes or no')
-    msg = await bot.wait_for_message()
+    msg = await bot.wait_for_message(timeout=30, author=user)
     if msg.content == 'yes':
         await bot.say('Got it. Headed to the kitchen now. Your order ID is {}'.format(id2))
         data[id2]["orderid"] = id2
