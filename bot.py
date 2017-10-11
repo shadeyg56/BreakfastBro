@@ -252,8 +252,8 @@ async def suggest(ctx, *, suggestion: str):
     embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
     embed.set_footer(text='Sent from: {}'.format(ctx.message.server))
     x = await bot.send_message(channel, embed=embed)
-    await bot.add_reaction(x, \U00002705)
-    await bot.add_reaction(x, \U0000274c)
+    await bot.add_reaction(x, '\U00002705')
+    await bot.add_reaction(x, '\U0000274c')
   
 
 bot.run(TOKEN)
