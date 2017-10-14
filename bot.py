@@ -94,21 +94,20 @@ async def order(ctx, *, food: str):
     data = json.loads(open('ids.json').read())
     with open('blacklists.json') as f:
         black = json.loads(f.read())
-    if not ctx.message.server.id in black["blacklists"] or ctx.message.author.id in black["blacklists"]:
-        await bot.say('Are you sure you want to order this? Make sure your item(s) are on the menu otherwise your order will be automatically declined. You can check the menu with b.menu. Reply with yes or no')
-        msg = await bot.wait_for_message(timeout=30, author=user)
-        if msg.content == 'yes':
-            await bot.say('Got it. Headed to the kitchen now. Your order ID is {}'.format(id2))
-            await bot.send_message(kitchen, embed=embed)
-            data[id2]["orderid"] = id2
-            data[id2]["status"] = "unclaimed"
-            data[id2]["user"] = user.id
-            data[id2]["food"] = food
-            data[id2]["server"] = ctx.message.server.id
-            data[id2]["channel"] = ctx.message.channel.id
-            data = json.dumps(data, indent=4, sort_keys=True)
-            with open('ids.json', 'w') as f:
-                 f.write(data)
+    await bot.say('Are you sure you want to order this? Make sure your item(s) are on the menu otherwise your order will be automatically declined. You can check the menu with b.menu. Reply with yes or no')
+    msg = await bot.wait_for_message(timeout=30, author=user)
+   if msg.content == 'yes':
+       await bot.say('Got it. Headed to the kitchen now. Your order ID is {}'.format(id2))
+       await bot.send_message(kitchen, embed=embed)
+       data[id2]["orderid"] = id2
+       data[id2]["status"] = "unclaimed"
+       data[id2]["user"] = user.id
+       data[id2]["food"] = food
+       data[id2]["server"] = ctx.message.server.id
+       data[id2]["channel"] = ctx.message.channel.id
+       data = json.dumps(data, indent=4, sort_keys=True)
+       with open('ids.json', 'w') as f:
+             f.write(data)
     if msg.content == 'no':
         await bot.say('Order cancelled')
     bot.customer = ctx.message.author.id
